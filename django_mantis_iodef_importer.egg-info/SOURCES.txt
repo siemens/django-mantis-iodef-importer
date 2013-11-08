@@ -4,6 +4,7 @@ HISTORY.rst
 LICENSE
 MANIFEST.in
 README.rst
+setup.py
 django_mantis_iodef_importer.egg-info/PKG-INFO
 django_mantis_iodef_importer.egg-info/SOURCES.txt
 django_mantis_iodef_importer.egg-info/dependency_links.txt
