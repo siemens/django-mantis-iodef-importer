@@ -20,8 +20,6 @@ import logging
 
 import re
 
-import pprint
-
 from django.utils import timezone
 
 from django.utils.dateparse import parse_datetime
@@ -37,9 +35,6 @@ from dingos.core.xml_utils import extract_attributes
 from mantis_core.import_handling import MantisImporter
 
 from mantis_core.models import FactDataType
-
-
-pp = pprint.PrettyPrinter(indent=2)
 
 from mantis_core.models import Identifier
 
@@ -89,6 +84,7 @@ class iodef_Import:
         if not xml_elt.name == "Incident":
             return result
 
+
         child = xml_elt.children
         while child:
             attributes = extract_attributes(child,prefix_key_char='')
@@ -107,8 +103,6 @@ class iodef_Import:
             child = child.next
   
        
-        print "****", result
-
         return result
 
 
@@ -130,7 +124,6 @@ class iodef_Import:
 
         # Incident - see RFC5070 page 12
         if child.name == 'Incident': # and values.get('@purpose') in [ 'traceback', 'migration', 'reporting', 'other', 'ext-value' ]:
-            print "####", child.name
 	    return child.name
         return False
 
@@ -257,7 +250,25 @@ class iodef_Import:
 
         """
 
-        return []
+        return [ (lambda fact, attr_info: fact['term'].split('/')[-1] == "Portlist", self.iodef_portlist_fact_handler) ]
+
+    def iodef_portlist_fact_handler(self, enrichment, fact, attr_info, add_fact_kargs):
+        """
+        Handler for dealing with 'Portlist' values.
+
+        Comma-separated lists are allowed within the Portlist-node in IODEF.
+
+        This handler is called for elements concerning a portlist-node
+        such as the following example:
+
+		<Service ip_protocol="6">
+		    <Portlist>60524,60526,60527,60531</Portlist>
+		</Service>
+        """
+
+        add_fact_kargs['values'] = fact['value'].split(',')
+        return True
+
 
     def attr_ignore_predicate(self,fact_dict):
         """
@@ -390,7 +401,6 @@ class iodef_Import:
                                                    keep_attrs_in_created_reference=False,
                                                   )
 
-	pp.pprint(import_result)
 
         id_and_rev_info = import_result['id_and_rev_info']
         elt_name = import_result['elt_name']
@@ -417,8 +427,6 @@ class iodef_Import:
             elt_dict = embedded_object['dict_repr']
             pending_stack.append((id_and_rev_info,elt_name,elt_dict))
 
-	print "Pending stack"
-	pp.pprint(pending_stack)
         if id_and_rev_info['timestamp']:
             ts = id_and_rev_info['timestamp']
         else:
@@ -428,7 +436,6 @@ class iodef_Import:
             # call the importer that turns DingoObjDicts into Information Objects in the database
             iobject_type_name = elt_name
             iobject_type_namespace_uri = self.namespace_dict.get(elt_dict.get('@@ns',None),DINGOS_GENERIC_FAMILY_NAME)
-            print "#####", id_and_rev_info
 
             if not id_and_rev_info['id']:
                 logger.error("Attempt to import object (element name %s) without id -- object is ignored" % elt_name)

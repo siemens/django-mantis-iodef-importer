@@ -9,7 +9,6 @@
      xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
      <Incident purpose="reporting">
        <IncidentID name="csirt.example.com">59334</IncidentID>
-       <ReportTime>2006-08-02T05:54:02-05:00</ReportTime>
        <Assessment>
          <Impact type="recon" completion="succeeded" />
        </Assessment>
