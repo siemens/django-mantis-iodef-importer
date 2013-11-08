@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This example demonstrates a report for a very
+     old worm (Code Red) -->
+<IODEF-Document version="1.00" lang="en"
+  xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
+  <Incident purpose="reporting">
+    <IncidentID name="csirt.example.com">189493</IncidentID>
+    <Description>Host sending out Code Red probes</Description>
+    <!-- An administrative privilege was attempted, but failed -->
+    <Assessment>
+      <Impact completion="failed" type="admin"/>
+    </Assessment>
+    <Contact role="creator" type="organization">
+      <ContactName>Example.com CSIRT</ContactName>
+      <RegistryHandle registry="arin">example-com</RegistryHandle>
+      <Email>contact@csirt.example.com</Email>
+    </Contact>
+    <EventData>
+      <Flow>
+        <System category="source">
+          <Node>
+            <Address category="ipv4-addr">192.0.2.200</Address>
+            <Counter type="event">57</Counter>
+          </Node>
+        </System>
+        <System category="target">
+          <Node>
+            <Address category="ipv4-net">192.0.2.16/28</Address>
+          </Node>
+          <Service ip_protocol="6">
+            <Port>80</Port>
+          </Service>
+        </System>
+      </Flow>
+      <Expectation action="block-host" />
+      <!-- <RecordItem> has an excerpt from a log -->
+      <Record>
+        <RecordData>
+          <DateTime>2001-09-13T18:11:21+02:00</DateTime>
+          <Description>Web-server logs</Description>
+          <RecordItem dtype="string">
+          192.0.2.1 - - [13/Sep/2001:18:11:21 +0200] "GET /default.ida?
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          </RecordItem>
+            <!-- Additional logs -->
+          <RecordItem dtype="url">
+             http://mylogs.example.com/logs/httpd_access</RecordItem>
+        </RecordData>
+      </Record>
+    </EventData>
+    <History>
+      <!-- Contact was previously made with the source network owner -->
+      <HistoryItem action="contact-source-site">
+        <DateTime>2001-09-14T08:19:01+00:00</DateTime>
+        <Description>Notification sent to
+                     constituency-contact@192.0.2.200</Description>
+      </HistoryItem>
+    </History>
+  </Incident>
+</IODEF-Document>

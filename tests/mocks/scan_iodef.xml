@@ -1,0 +1,80 @@
+
+   <?xml version="1.0" encoding="UTF-8" ?>
+   <!-- This example describes reconnaissance activity: one-to-one and
+        one-to-many scanning -->
+
+   <IODEF-Document version="1.00" lang="en"
+     xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
+     <Incident purpose="reporting">
+       <IncidentID name="csirt.example.com">59334</IncidentID>
+       <ReportTime>2006-08-02T05:54:02-05:00</ReportTime>
+       <Assessment>
+         <Impact type="recon" completion="succeeded" />
+       </Assessment>
+       <Method>
+         <!-- Reference to the scanning tool "nmap" -->
+         <Reference>
+           <ReferenceName>nmap</ReferenceName>
+           <URL>http://nmap.toolsite.example.com</URL>
+         </Reference>
+       </Method>
+       <!-- Organizational contact and that for staff in that
+            organization -->
+       <Contact role="creator" type="organization">
+         <ContactName>CSIRT for example.com</ContactName>
+         <Email>contact@csirt.example.com</Email>
+         <Telephone>+1 412 555 12345</Telephone>
+         <!-- Since this <Contact> is nested, Joe Smith is part of the
+             CSIRT for example.com -->
+         <Contact role="tech" type="person" restriction="need-to-know">
+           <ContactName>Joe Smith</ContactName>
+           <Email>smith@csirt.example.com</Email>
+         </Contact>
+       </Contact>
+       <EventData>
+         <!-- Scanning activity as follows:
+           192.0.2.1:60524 >> 192.0.2.3:137
+                  192.0.2.1:60526 >> 192.0.2.3:138
+                  192.0.2.1:60527 >> 192.0.2.3:139
+                  192.0.2.1:60531 >> 192.0.2.3:445
+         -->
+         <Flow>
+           <System category="source">
+             <Node>
+               <Address category="ipv4-addr">192.0.2.200</Address>
+             </Node>
+             <Service ip_protocol="6">
+               <Portlist>60524,60526,60527,60531</Portlist>
+             </Service>
+           </System>
+           <System category="target">
+             <Node>
+               <Address category="ipv4-addr">192.0.2.201</Address>
+             </Node>
+             <Service ip_protocol="6">
+               <Portlist>137-139,445</Portlist>
+             </Service>
+           </System>
+         </Flow>
+         <!-- Scanning activity as follows:
+               192.0.2.2 >> 192.0.2.3/28:445 -->
+         <Flow>
+           <System category="source">
+             <Node>
+               <Address category="ipv4-addr">192.0.2.240</Address>
+             </Node>
+           </System>
+           <System category="target">
+             <Node>
+               <Address category="ipv4-net">192.0.2.64/28</Address>
+             </Node>
+             <Service ip_protocol="6">
+               <Port>445</Port>
+             </Service>
+           </System>
+         </Flow>
+       </EventData>
+     </Incident>
+   </IODEF-Document>

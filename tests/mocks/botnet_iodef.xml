@@ -1,0 +1,73 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <!-- This example describes a compromise and subsequent installation
+      of bots -->
+ <IODEF-Document version="1.00" lang="en"
+   xmlns="urn:ietf:params:xml:ns:iodef-1.0"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="urn:ietf:params:xml:schema:iodef-1.0">
+   <Incident purpose="mitigation">
+     <IncidentID name="csirt.example.com">908711</IncidentID>
+     <ReportTime>2006-06-08T05:44:53-05:00</ReportTime>
+     <Description>Large bot-net</Description>
+     <Assessment>
+       <Impact type="dos" severity="high" completion="succeeded" />
+     </Assessment>
+     <Method>
+       <!-- References a given piece of malware, "GT Bot" -->
+       <Reference>
+         <ReferenceName>GT Bot</ReferenceName>
+       </Reference>
+       <!-- References the vulnerability used to compromise the
+            machines -->
+       <Reference>
+         <ReferenceName>CA-2003-22</ReferenceName>
+         <URL>http://www.cert.org/advisories/CA-2003-22.html</URL>
+         <Description>Root compromise via this IE vulnerability to
+                      install the GT Bot</Description>
+       </Reference>
+     </Method>
+     <!-- A member of the CSIRT that is coordinating this
+          incident -->
+     <Contact type="person" role="irt">
+       <ContactName>Joe Smith</ContactName>
+       <Email>jsmith@csirt.example.com</Email>
+     </Contact>
+     <EventData>
+       <Description>These hosts are compromised and acting as bots
+                    communicating with irc.example.com.</Description>
+       <Flow>
+         <!-- bot running on 192.0.2.1 and sending DoS traffic at
+              10,000 bytes/second -->
+         <System category="source">
+           <Node>
+             <Address category="ipv4-addr">192.0.2.1</Address>
+           </Node>
+           <Counter type="byte" duration="second">10000</Counter>
+           <Description>bot</Description>
+         </System>
+         <!-- a second bot on 192.0.2.3 -->
+         <System category="source">
+           <Node>
+             <Address category="ipv4-addr">192.0.2.3</Address>
+           </Node>
+           <Counter type="byte" duration="second">250000</Counter>
+           <Description>bot</Description>
+         </System>
+         <!-- Command-and-control IRC server for these bots-->
+         <System category="intermediate">
+           <Node>
+             <NodeName>irc.example.com</NodeName>
+             <Address category="ipv4-addr">192.0.2.20</Address>
+             <DateTime>2006-06-08T01:01:03-05:00</DateTime>
+           </Node>
+           <Description>IRC server on #give-me-cmd channel</Description>
+         </System>
+       </Flow>
+       <!-- Request to take these machines offline -->
+       <Expectation action="investigate">
+         <Description>Confirm the source and take machines off-line and
+                      remediate</Description>
+       </Expectation>
+     </EventData>
+   </Incident>
+ </IODEF-Document>
