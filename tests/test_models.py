@@ -41,8 +41,6 @@ class XML_Import_Tests(CustomSettingsTestCase):
 
 
         (delta,result) = t_import(xml_file,
-                                  marking_json=None,
-                                  placeholder_fillers=[('source', 'Example_import')],
                                   identifier_ns_uri=None)
         #pp.pprint(delta)
         return delta
