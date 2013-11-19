@@ -16,18 +16,6 @@
 #
 
 
-from django import test
-from dingos.models import *
-from dingos.core.datastructures import DingoObjDict
-
-from dingos.import_handling import DingoImportHandling \
-    , EXIST_PLACEHOLDER \
-    , EXIST_ID_AND_EXACT_TIMESTAMP \
-    , EXIST_ID_AND_NEWER_TIMESTAMP \
-    , EXIST_ID_AND_OLDER_TIMESTAMP
-
-import dingos.core.datastructures as datastructures
-
 import pprint
 
 pp = pprint.PrettyPrinter(indent=2)

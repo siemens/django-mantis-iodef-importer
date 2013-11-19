@@ -9,9 +9,11 @@ django_mantis_iodef_importer.egg-info/PKG-INFO
 django_mantis_iodef_importer.egg-info/SOURCES.txt
 django_mantis_iodef_importer.egg-info/dependency_links.txt
 django_mantis_iodef_importer.egg-info/not-zip-safe
+django_mantis_iodef_importer.egg-info/requires.txt
 django_mantis_iodef_importer.egg-info/top_level.txt
 mantis_iodef_importer/__init__.py
 mantis_iodef_importer/importer.py
 mantis_iodef_importer/management/__init__.py
 mantis_iodef_importer/management/commands/__init__.py
 mantis_iodef_importer/management/commands/mantis_iodef_import.py
+mantis_iodef_importer/management/commands/mantis_iodef_set_naming.py
