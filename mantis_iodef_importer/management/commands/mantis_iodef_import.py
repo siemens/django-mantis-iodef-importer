@@ -28,5 +28,5 @@ class Command(DingoImportCommand):
 
     Importer = ImporterModule()
 
-    help = 'Imports iodef XML files of specified paths into DINGO'
+    help = 'Imports IODEF XML files of specified paths into DINGOS'
 
