@@ -18,6 +18,6 @@ together with the apps ``dingos`` and ``mantis_core`` on which ``mantis_iodef_im
                            ...,
                            'dingos',
                            'mantis_core',
-                           'mantis_openioc_importer',
+                           'mantis_iodef_importer',
                            ]
 

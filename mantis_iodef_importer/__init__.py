@@ -16,7 +16,7 @@
 #
 
 
-__version__ = '0.0.9'
+__version__ = '0.1.0'
 
 REVISION = __version__
 

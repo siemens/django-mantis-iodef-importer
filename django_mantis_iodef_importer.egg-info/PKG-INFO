@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: django-mantis-iodef-importer
-Version: 0.1.0
+Version: 0.0.9
 Summary: A iodef importer for the  Mantis Cyber Threat Intelligence Mgmt. Framework.
 Home-page: https://github.com/siemens/django-mantis-iodef-importer
 Author: Siemens
