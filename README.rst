@@ -14,7 +14,7 @@ Quickstart
 ----------
 
 Please refer to the Quickstart information of MANTIS, available at
-http://django-mantis.rtfd.org.
+http://django-mantis.readthedocs.org.
 
 Acknowledgments
 ---------------
