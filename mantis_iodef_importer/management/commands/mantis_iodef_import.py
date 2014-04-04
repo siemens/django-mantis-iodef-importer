@@ -26,7 +26,7 @@ class Command(DingoImportCommand):
     files into DINGO.
     """
 
-    Importer = ImporterModule()
+    ImporterClass = ImporterModule
 
     help = 'Imports IODEF XML files of specified paths into DINGOS'
 
