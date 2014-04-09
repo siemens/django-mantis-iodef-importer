@@ -54,9 +54,7 @@ class iodef_Import:
 
 
         # Whenever an object is created, we save the creation time.
-        # Note that the xml_import function below makes a call to
-        # __init__, so the timestamp is set freshly for each
-        # call to this function.
+
 
         self.create_timestamp = timezone.now()
 
@@ -96,6 +94,27 @@ class iodef_Import:
 
         self.iobject_family_name = 'iodef'
         self.iobject_family_revision_name = ''
+
+        if 'default_identifier_ns_uri' in kwargs:
+            self.default_identifier_ns_uri = kwargs['default_identifier_ns_uri']
+        else:
+            self.default_identifier_ns_uri = DINGOS_DEFAULT_ID_NAMESPACE_URI
+
+        self.identifier_ns_uri  = self.default_identifier_ns_uri
+
+        if 'allowed_identifier_ns_uris' in kwargs:
+            self.allowed_identifier_ns_uris = kwargs['allowed_identifier_ns_uris']
+
+        else:
+            self.allowed_identifier_ns_uris = None
+
+        if 'substitute_unallowed_namespaces' in kwargs:
+            self.substitute_unallowed_namespaces = kwargs['substitute_unallowed_namespaces']
+
+        else:
+            self.substitute_unallowed_namespaces = False
+
+
 
 
     #
@@ -452,9 +471,10 @@ class iodef_Import:
         without the **kwargs parameter, an error would occur.
         """
 
-        # Clear state in case xml_import is used several times
 
-        self.__init__()
+        # Set timestamp for this import
+
+        self.create_timestamp = timezone.now()
 
         # Initialize  default arguments
 
@@ -557,6 +577,7 @@ class iodef_Import:
                 logger.error("Attempt to import object (element name %s) without id -- object is ignored" % elt_name)
                 continue
 
+            logger.debug("Id and rev %s" % id_and_rev_info)
             MantisImporter.create_iobject(iobject_family_name=self.iobject_family_name,
                                           iobject_family_revision_name=self.iobject_family_revision_name,
                                           iobject_type_name=iobject_type_name,
@@ -572,7 +593,11 @@ class iodef_Import:
                                                         'datatype_extractor': self.datatype_extractor,
                                                         'attr_ignore_predicate': self.attr_ignore_predicate},
                                           namespace_dict=self.namespace_dict,
-            )
+                                          default_identifier_ns_uri=self.default_identifier_ns_uri,
+                                          allowed_identifier_ns_uris=self.allowed_identifier_ns_uris,
+                                          substitute_unallowed_namespaces=self.substitute_unallowed_namespaces,
+
+                                          )
 
 
 
