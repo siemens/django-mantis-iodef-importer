@@ -2,6 +2,12 @@
 Mantis IODEF Importer
 =============================
 
+**WARNING: Mantis is not maintained anymore: by now, the excellent MISP platform
+(http://www.misp-project.org/)
+offers all the functionality (and much more) that had been required when
+MANTIS was created but could then not be found in any other tool.**
+
+
 
 An IODEF (v1.0) importer for the  Mantis Cyber Threat Intelligence Mgmt. Framework.
 
